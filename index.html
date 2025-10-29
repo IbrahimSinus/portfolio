@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Portfolio</title>
+    <!-- Import "Inter" font, which is similar to Google's/Gemini's font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- ================== --- */
+        /* --- 1. Global Styles & Theme --- */
+        /* --- ================== --- */
+        :root {
+            --bg-color: #0d0f14;         /* Very dark blue, almost black */
+            --card-color: #1a1c23;       /* Lighter dark blue for cards */
+            --text-primary: #e0e0e0;     /* Light gray for body text */
+            --text-secondary: #a0a0a0;   /* Muted gray for subtext */
+            --border-color: #2a2c37;
+            
+            /* Gemini-style accent colors */
+            --accent-blue: #4a80ff;
+            --accent-purple: #9d7bff;
+            --accent-teal: #33d1b9;
+            --accent-orange: #ff9a40;
+            
+            --header-height: 70px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            /* This makes the #hash link scrolling smooth */
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* This pseudo-element creates the "Gemini" glow effect at the top */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60vh;
+            background: radial-gradient(ellipse at top, rgba(19, 42, 94, 0.4), transparent 70%);
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* This offsets all sections to account for the fixed header */
+        section[id] {
+            scroll-margin-top: var(--header-height);
+            padding-top: calc(var(--header-height) + 2rem);
+        }
+        section[id]:first-of-type {
+            /* No extra padding for the first section, but keep scroll margin */
+            padding-top: 0;
+            margin-top: 2rem; /* Add margin to space from header */
+        }
+
+
+        h1, h2, h3, h4 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            line-height: 1.2;
+            background: -webkit-linear-gradient(45deg, var(--accent-blue), var(--accent-purple), var(--accent-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            border-bottom: 2px solid var(--accent-blue);
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 2.5rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--accent-purple);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        ul {
+            margin-left: 20px;
+            margin-bottom: 1rem;
+        }
+
+        a {
+            color: var(--accent-teal);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #8affeb;
+        }
+        
+        .content-card {
+            background-color: var(--card-color);
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px -15px rgba(0,0,0,0.3);
+        }
+
+
+        /* --- ================== --- */
+        /* --- 2. Header / Navigation --- */
+        /* --- ================== --- */
+        .main-header {
+            background-color: rgba(13, 15, 20, 0.8); /* Translucent dark background */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            height: var(--header-height);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 0.5rem;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .nav-links a.active {
+            color: var(--accent-blue);
+        }
+
+        /* --- Hamburger Menu (Mobile) --- */
+        .hamburger-menu {
+            display: none; /* Hidden on desktop */
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+        }
+
+        .hamburger-menu .bar {
+            width: 100%;
+            height: 3px;
+            background-color: var(--text-primary);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+
+        /* --- ================== --- */
+        /* --- 3. Section Styling --- */
+        /* --- ================== --- */
+
+        /* --- About Me Section --- */
+        .about-section {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+        }
+
+        .about-text {
+            flex: 1; /* Was flex-basis: 65%; */
+        }
+        
+        .about-photo {
+            flex-basis: 300px; /* Fixed basis for photo */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 2rem;
+        }
+
+        .about-photo img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 50%; /* Makes the photo circular */
+            border: 3px solid var(--border-color);
+            box-shadow: 0 0 20px rgba(157, 123, 255, 0.2); /* Purple glow */
+        }
+
+        /* --- Experience & Education List --- */
+        .job, .education-item {
+            margin-bottom: 2rem;
+            padding-left: 1.5rem;
+            border-left: 3px solid var(--accent-purple);
+        }
+        
+        .job:last-child, .education-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .job-title, .degree {
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .company, .school {
+            color: var(--accent-purple);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .company, .school a {
+            color: var(--accent-purple);
+        }
+
+        .company, .school a:hover {
+            color: var(--text-secondary);
+        }
+
+        .job-date, .edu-date {
+            font-style: italic;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- Projects Grid --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 20px rgba(74, 128, 255, 0.2);
+        }
+
+        .project-card h4 {
+            color: var(--accent-teal);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .project-links a {
+            margin-right: 1rem;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* --- Reach Me (Contact) Form --- */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-form label {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 0.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px rgba(74, 128, 255, 0.3);
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            color: #ffffff;
+            border: none;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: #6a95ff;
+            box-shadow: 0 0 15px rgba(74, 128, 255, 0.4);
+        }
+
+        .social-links {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 1rem;
+            color: var(--text-secondary);
+        }
+
+        .social-links a:hover {
+            color: var(--accent-purple);
+        }
+
+        /* --- ================== --- */
+        /* --- 4. Footer --- */
+        /* --- ================== --- */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem 2rem;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border-color);
+            margin-top: 4rem;
+        }
+
+        /* --- ================== --- */
+        /* --- 5. Responsive Design --- */
+        /* --- ================== --- */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            .main-header {
+                padding: 0 1.5rem;
+            }
+            
+            /* --- Mobile Navigation Logic --- */
+            .hamburger-menu {
+                display: flex; /* Show hamburger */
+                z-index: 1001; /* Above nav links */
+            }
+
+            .nav-links {
+                display: none; /* Hide nav links by default */
+                flex-direction: column;
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 75%;
+                height: 100vh;
+                background-color: var(--card-color);
+                box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+                padding-top: var(--header-height);
+                
+                /* Smooth slide-in transition */
+                transform: translateX(100%);
+                transition: transform 0.3s ease-in-out;
+            }
+            
+            .nav-links.show {
+                display: flex; /* Show when 'show' class is added by JS */
+                transform: translateX(0);
+            }
+
+            .nav-links li {
+                margin: 0;
+                width: 100%;
+            }
+            
+            .nav-links a {
+                display: block;
+                padding: 1.5rem;
+                text-align: center;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            /* Hamburger 'X' animation */
+            .hamburger-menu.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+            .hamburger-menu.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+            .hamburger-menu.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+            /* --- End Mobile Nav --- */
+
+            .container {
+                padding: 1.5rem;
+            }
+            
+            section[id] {
+                padding-top: calc(var(--header-height) + 1.5rem);
+            }
+            
+            section[id]:first-of-type {
+                 padding-top: 1.5rem; /* Reset padding for mobile */
+                 margin-top: 0;
+            }
+
+            .content-card {
+                padding: 1.5rem;
+            }
+
+            /* --- About Me Responsive --- */
+            .about-section {
+                flex-direction: column-reverse; /* Stacks photo on top */
+            }
+            
+            .about-text {
+                flex-basis: 100%;
+            }
+
+            .about-photo {
+                flex-basis: auto;
+                margin-left: 0;
+                margin-bottom: 1.5rem;
+            }
+
+            .about-photo img {
+                max-width: 200px; /* Smaller photo on mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ================== -->
+    <!-- 1. HEADER / NAVBAR -->
+    <!-- ================== -->
+    <header class="main-header">
+        <a href="#about" class="logo">Muhammad Ibrahim</a>
+        <nav class="main-nav">
+            <div class="hamburger-menu">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about" class="active">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#reach-me">Reach Me</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <!-- ================== -->
+        <!-- 2. ABOUT ME        -->
+        <!-- ================== -->
+        <section id="about" class="content-card about-section">
+            <div class="about-text">
+                <h1>Hi, I'm Muhammad Ibrahim</h1>
+                <h3 style="color: var(--accent-orange); margin-bottom: 1.5rem;">Data Analyst / Bridging IT & Data with SQL, Python, and Automation</h3>
+                
+                <p>
+                    Data Analyst offering a unique IT Coordinator background. I have a proven history of analyzing user needs to build cost-saving systems (like an LMS) using Google Sheets and AppScript, giving me a strong foundation in data flows. 
+                </p>
+                <p>
+                    Now skilled in SQL, Python, and visualization from the RevoU program, I offer an architect's perspective to deliver data solutions that are practical, efficient, and built to last.
+                </p>
+                
+                <h3>My Core Skills</h3>
+                <ul>
+                    <li>Google Workspace</li>
+                    <li>Spreadsheets</li>
+                    <li>Appscript & Automation</li>
+                    <li>SQL</li>
+                    <li>Python</li>
+                    <li>Tableau</li>
+                </ul>
+            </div>
+            <div class="about-photo">
+                <!-- 
+                    This is a placeholder image. 
+                    To use your own photo:
+                    1. Upload your photo (e.g., "my-photo.jpg") to your GitHub repository.
+                    2. Change the src="" attribute below to:
+                       src="my-photo.jpg"
+                -->
+                <img src="IMG_8690.jpg" alt="A professional photo of [Your Name]">
+            </div>
+        </section>
+
+        <!-- ================== -->
+        <!-- 3. EXPERIENCE      -->
+        <!-- ================== -->
+        <section id="experience">
+            <h2>Work Experience</h2>
+            <div class="content-card">
+                <div class="job">
+                    <h3 class="job-title">IT Coordinator</h3>
+                    <p class="company"><a href="https://annash.or.id" target="_blank">Yayasan Islam An Nash Ahsan</a></p>
+                    <p class="job-date">Jun 2022 - Sep 2025</p>
+                    <ul>
+                        <li>Led the development of organizational systems, including LMS and HRIS for recruitment, utilizing Google Spreadsheets and AppScript as the core platforms.</li>
+                        <li>Managed the full lifecycle of the organization’s IT system for integrated school and institutional data; responsibilities include driving continuous improvements, ensuring system stability, and architecting the roadmap for its next phase of development. Most systems are built using integrated Google spreadsheets and AppScript.</li>
+                        <li>Cut operational expenses by architecting and building internal systems, such as for education (LMS) and recruitment management (HRIS), removing the need for costly third-party software.</li>
+                    </ul>
+                </div>
+
+                <div class="job">
+                    <h3 class="job-title">Representative Agent</h3>
+                    <p class="company"><a href="https://tp.com" target="_blank">TELEPERFORMANCE</a></p>
+                    <p class="job-date">Aug 2021 - Mar 2022</p>
+                    <ul>
+                        <li>Handled and managed user complaints & reports as a Customer Service Agent dedicated to the Shopee Solo site using Salesforce Platform.</li>
+                        <li>Created a Google spreadsheet system to handle, manage, and conduct reports regarding devices such as laptops and portable wifis as a Facility Agent & IT Support dedicated to the Shopee Solo site.</li>
+                        <li>Streamlined device management by automating manual checking, tracing, and reporting processes with a custom Google Spreadsheet system, saving over 50% of time.</li>
+                    </ul>
+                </div>
+
+                <div class="job">
+                    <h3 class="job-title">Freelance Junior Staff Accountant</h3>
+                    <p class="company"><a href="https://xclmedia.com" target="_blank">XCLMedia</a></p>
+                    <p class="job-date">Dec 2017 - Aug 2020</p>
+                    <ul>
+                        <li>Developed solutions to improve bookkeeping process efficiency, therefore consistently completed all tasks and reports ahead of schedule.</li>
+                        <li>Imported and cleaned raw data from the user’s bank and financial records into the General Ledger before processing for further analysis using Excel Sheets.</li>
+                        <li>Helped prepare balance sheets and reconcile accounts.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================== -->
+        <!-- 4. EDUCATION       -->
+        <!-- ================== -->
+        <section id="education">
+            <h2>Education</h2>
+            <div class="content-card">
+                <div class="education-item">
+                    <h3 class="degree">Full-stack Data Analytics</h3>
+                    <p class="school"><a href="https://revou.co" target="_blank">RevoU</a></p>
+                    <p class="edu-date">2025</p>
+                    <p>Developed comprehensive skills in data management, including collection, cleaning, analysis, and visualization using Spreadsheets, SQL, Python, and Tableau</p>
+                </div>
+
+                <div class="education-item">
+                    <h3 class="degree">Bachelor Degree in Informatics Engineering</h3>
+                    <p class="school"><a href="https://tsu.ac.id/" target="_blank">Tiga Serangkai University (Formerly STMIK Sinar Nusantara)</a></p>
+                    <p class="edu-date">2014 - 2021</p>
+                    <p>Thesis: Expert System Using Certainty Factor Method For Diagnosing Damage To HP Laptops.
+                    <br>GPA: 3.45</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================== -->
+        <!-- 5. PROJECTS        -->
+        <!-- ================== -->
+        <section id="projects">
+            <h2>My Projects</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">Here are few projects i've done as Data Analyst.</p>
+
+            <div class="project-grid">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <h4>Uber Fare Analysis (Price Prediction)</h4>
+                    <p style="text-align: justify;">Developed a machine learning model to predict Uber fares using a 200,000-trip NYC dataset, aiming to achieve an R-Squared > 90% and RMSE < $2.50.</p>
+                    <p><strong>Tech used:</strong> Python, Tableau</p>
+                    <div class="project-links">
+                        <!-- <a href="https://github.com/your-username/project-repo" target="_blank">GitHub</a> -->
+                        <a href="https://docs.google.com/presentation/d/1Z__IC-aCuCrSw04eyko2DFrosFAzlBvu/" target="_blank">Analysis Report</a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card">
+                    <h4>Uber Fare Analysis (Price Prediction)</h4>
+                    <p style="text-align: justify;">Developed a machine learning model to predict Uber fares using a 200,000-trip NYC dataset, aiming to achieve an R-Squared > 90% and RMSE < $2.50.</p>
+                    <p><strong>Tech used:</strong> Python, Tableau</p>
+                    <div class="project-links">
+                        <!-- <a href="https://github.com/your-username/project-repo" target="_blank">GitHub</a> -->
+                        <a href="https://docs.google.com/presentation/d/1Z__IC-aCuCrSw04eyko2DFrosFAzlBvu/" target="_blank">Analysis Report</a>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card">
+                    <h4>Uber Fare Analysis (Price Prediction)</h4>
+                    <p style="text-align: justify;">Developed a machine learning model to predict Uber fares using a 200,000-trip NYC dataset, aiming to achieve an R-Squared > 90% and RMSE < $2.50.</p>
+                    <p><strong>Tech used:</strong> Python, Tableau</p>
+                    <div class="project-links">
+                        <!-- <a href="https://github.com/your-username/project-repo" target="_blank">GitHub</a> -->
+                        <a href="https://docs.google.com/presentation/d/1Z__IC-aCuCrSw04eyko2DFrosFAzlBvu/" target="_blank">Analysis Report</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================== -->
+        <!-- 6. REACH ME        -->
+        <!-- ================== -->
+        <section id="reach-me">
+            <h2>Get In Touch</h2>
+            <div class="content-card">
+                <p>I'm always open to discussing new projects, creative ideas, or opportunities. Feel free to send me a message.</p>
+                
+                <!-- 
+                    IMPORTANT: This form won't work on its own.
+                    You need a backend service. A free and easy one is 'Formspree'.
+                    Go to https://formspree.io/
+                    1. Create an account.
+                    2. Create a new form and get your unique endpoint URL.
+                    3. Replace "YOUR_FORMSPREE_ENDPOINT" with your URL.
+                -->
+                <form action="https://formspree.io/f/YOUR_FORMSPREE_ENDPOINT" method="POST" class="contact-form">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+
+                    <button type="submit" class="btn-primary">Send Message</button>
+                </form>
+
+                <div class="social-links">
+                    <!-- <a href="https://github.com/your-username" target="_blank">GitHub</a> -->
+                    <a href="https://linkedin.com/in/m-ibrahim-k" target="_blank">LinkedIn</a>
+                    <!-- <a href="https://twitter.com/your-username" target="_blank">Twitter</a> -->
+                     <a href="https://ibrahimk.pixieset.com" target="_blank">Photography</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ================== -->
+    <!-- 7. FOOTER          -->
+    <!-- ================== -->
+    <footer>
+        <p>&copy; 2025 Ibrahim K. All rights reserved.</p>
+        <!-- <p>Built with ❤️ and deployed on GitHub Pages.</p> -->
+    </footer>
+
+    <!-- ================== -->
+    <!-- 8. JAVASCRIPT      -->
+    <!-- ================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.querySelector('.hamburger-menu');
+            const navLinks = document.querySelector('.nav-links');
+            const allNavLinks = document.querySelectorAll('.nav-links a');
+            const sections = document.querySelectorAll('section[id]');
+
+            // --- 1. Hamburger Menu Toggle ---
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('show');
+                hamburger.classList.toggle('active');
+            });
+
+            // --- 2. Close Mobile Menu on Link Click ---
+            allNavLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navLinks.classList.contains('show')) {
+                        navLinks.classList.remove('show');
+                        hamburger.classList.remove('active');
+                    }
+                });
+            });
+
+            // --- 3. Active Nav Link Highlighting on Scroll ---
+            const observerOptions = {
+                root: null, // relative to viewport
+                rootMargin: `-${var(--header-height)}px 0px 0px 0px`, // offset by header height
+                threshold: 0.3 // 30% of the section must be visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Remove 'active' from all links
+                        allNavLinks.forEach(link => link.classList.remove('active'));
+                        
+                        // Add 'active' to the matching link
+                        const id = entry.target.getAttribute('id');
+                        const activeLink = document.querySelector(`.nav-links a[href="#${id}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all sections
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>
+

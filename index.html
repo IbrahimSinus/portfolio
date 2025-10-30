@@ -712,6 +712,10 @@
             const navLinks = document.querySelector('.nav-links');
             const allNavLinks = document.querySelectorAll('.nav-links a');
             const sections = document.querySelectorAll('section[id]');
+            
+            // This is the fix for the broken script.
+            // We must read the CSS variable value first.
+            const headerHeight = getComputedStyle(document.documentElement).getPropertyValue('--header-height').trim();
 
             // --- 1. Hamburger Menu Toggle ---
             hamburger.addEventListener('click', () => {
@@ -732,7 +736,8 @@
             // --- 3. Active Nav Link Highlighting on Scroll ---
             const observerOptions = {
                 root: null, // relative to viewport
-                rootMargin: `-${var(--header-height)}px 0px 0px 0px`, // offset by header height
+                // Use the JS variable 'headerHeight' here
+                rootMargin: `-${headerHeight} 0px 0px 0px`, 
                 threshold: 0.3 // 30% of the section must be visible
             };
 
@@ -760,5 +765,6 @@
     </script>
 </body>
 </html>
+
 
 

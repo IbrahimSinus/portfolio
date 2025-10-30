@@ -73,9 +73,9 @@
             padding-top: calc(var(--header-height) + 2rem);
         }
         section[id]:first-of-type {
-            /* No extra padding for the first section, but keep scroll margin */
-            padding-top: 0;
-            margin-top: 2rem; /* Add margin to space from header */
+            /* This is the fix for the header cropping the "About Me" section */
+            padding-top: calc(var(--header-height) + 2rem);
+            margin-top: 0; 
         }
 
 
@@ -477,7 +477,9 @@
 
             .about-photo {
                 flex-basis: auto;
-                margin-left: 0;
+                /* This is the fix for mobile centering */
+                margin-left: auto;
+                margin-right: auto;
                 margin-bottom: 1.5rem;
             }
 
@@ -765,6 +767,7 @@
     </script>
 </body>
 </html>
+
 
 
 
